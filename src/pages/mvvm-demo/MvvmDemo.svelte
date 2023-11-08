@@ -2,9 +2,10 @@
   import { navigate } from "svelte-navigator";
   import _viewModel from "./MvvmDemo.ViewModel";
 
+  $: products = _viewModel.getProducts();
 
-  let products = _viewModel.products;
-  let singleProduct = _viewModel.singleProduct;
+  let selectedProductIndex = 0;
+  $: singleProduct = _viewModel.getSingleProduct(selectedProductIndex);
 
 </script>
 
@@ -16,12 +17,16 @@
 
   {#if $products}
     {#each $products as product}
-      <button on:click={() => _viewModel.selectProduct(product.id)}>{product.title}</button>
+      <button class="btn btn-secondary me-2 my-2" on:click={() => selectedProductIndex = product.id}>{product.title}</button>
     {/each}
   {/if}
 
   <h2 class="mt-4">Single Product</h2>
-  <div>{$singleProduct?.title}</div>
+  <div>{$singleProduct?.title ?? 'No product selected'}</div>
 
-  <button class="btn btn-link" on:click={() => navigate(-1)}>Go Back</button>
+  <button class="btn btn-danger mt-2" on:click={() => _viewModel.removeProduct(selectedProductIndex)}>Remove Selected Product</button>
+
+  <br/>
+
+  <button class="btn btn-link mt-2" on:click={() => navigate(-1)}>Go Back</button>
 </div>
