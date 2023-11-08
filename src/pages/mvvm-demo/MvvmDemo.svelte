@@ -2,21 +2,9 @@
   import { navigate } from "svelte-navigator";
   import _viewModel from "./MvvmDemo.ViewModel";
 
-  // let products = new BehaviorSubject([]) as BehaviorSubject<ProductDocType[]>;
 
-  // setTimeout(() => {
-  //   products.next([
-  //     {
-  //       title: "Product 1",
-  //       description: "Product 1 description",
-  //       price: 100,
-  //       id: 1,
-  //     },
-  //   ]);
-  // }, 1000);
-
-
-  let productsObservable = _viewModel.productsObservable;
+  let products = _viewModel.products;
+  let singleProduct = _viewModel.singleProduct;
 
 </script>
 
@@ -26,9 +14,14 @@
 
   <h2 class="mt-4">List of Products</h2>
 
-  {#each $productsObservable as product}
-    <div>{product.title}</div>
-  {/each}
+  {#if $products}
+    {#each $products as product}
+      <button on:click={() => _viewModel.selectProduct(product.id)}>{product.title}</button>
+    {/each}
+  {/if}
+
+  <h2 class="mt-4">Single Product</h2>
+  <div>{$singleProduct?.title}</div>
 
   <button class="btn btn-link" on:click={() => navigate(-1)}>Go Back</button>
 </div>

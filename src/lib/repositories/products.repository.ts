@@ -18,20 +18,20 @@ const getAllProducts = () => {
   return dbCollections.products.find().$;
 };
 
-const getProductById = async (id: number) => {
+const getProductById = (id: number) => {
   // fetch latest data from api
-  productsService
-    .getProductById(id)
-    .then(product => {
-      // update the database
-      dbCollections.products.insert(product);
-    })
-    .catch(error => {
-      // handle the error
-    })
-    .finally(() => {
+  // productsService
+  //   .getProductById(id)
+  //   .then(product => {
+  //     // update the database
+  //     dbCollections.products.insert(product);
+  //   })
+  //   .catch(error => {
+  //     // handle the error
+  //   })
+  //   .finally(() => {
 
-    });
+  //   });
   return dbCollections.products.findOne({ selector: { id } }).$;
 }
 

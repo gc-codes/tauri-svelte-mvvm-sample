@@ -5,24 +5,19 @@ import type { ProductDocType } from "../../lib/models/product.model";
 const title = 'MVVM Demo';
 const description = 'This is a demo of the MVVM pattern in Tauri + Svelte.';
 
+let products = productsRepository.getAllProducts();
 
-let productsObservable = productsRepository.getAllProducts();
-productsObservable.subscribe((productsList) => {
-  
-});
+let singleProduct = productsRepository.getProductById(1);
 
-const getAllProducts = () => {
-  
-};
-
-const getProductById = (id: number) => {
-  return productsRepository.getProductById(id);
-};
+const selectProduct = (id: number) => {
+  console.log('select product called')
+  singleProduct = productsRepository.getProductById(id);
+}
 
 export default {
   title,
   description,
-  productsObservable,
-  getAllProducts,
-  getProductById,
+  products,
+  singleProduct,
+  selectProduct
 };
