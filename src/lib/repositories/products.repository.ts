@@ -3,18 +3,18 @@ import productsService from "../services/products.service";
 
 const getAllProducts = () => {
   // fetch latest data from api
-  // productsService
-  //   .getProducts()
-  //   .then(data => {
-  //     // update the database
-  //     dbCollections.products.bulkInsert(data.products);
-  //   })
-  //   .catch(error => {
-  //     // handle the error
-  //   })
-  //   .finally(() => {
+  productsService
+    .getProducts()
+    .then(data => {
+      // update the database
+      dbCollections.products.bulkInsert(data.products);
+    })
+    .catch(error => {
+      // handle the error
+    })
+    .finally(() => {
 
-  //   });
+    });
   return dbCollections.products.find().$;
 };
 
