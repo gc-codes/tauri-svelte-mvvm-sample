@@ -1,6 +1,8 @@
 <script lang="ts">
   import { navigate } from "svelte-navigator";
-  import { HomePageViewModel as _viewModel } from "./HomePage.ViewModel";
+  import HomePageViewModel from "./HomePage.ViewModel";
+
+  const _viewModel = new HomePageViewModel();
 
   const navigateToRoute = (route: string) => {
     navigate(route);

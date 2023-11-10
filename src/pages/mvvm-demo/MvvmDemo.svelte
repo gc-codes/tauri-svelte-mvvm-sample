@@ -1,11 +1,22 @@
 <script lang="ts">
   import { navigate } from "svelte-navigator";
-  import _viewModel from "./MvvmDemo.ViewModel";
+  import MvvmDemoViewModel from "./MvvmDemo.ViewModel";
+    import { onMount } from "svelte";
 
-  $: products = _viewModel.getProducts();
+  // view model is initated here
+  // in some cases when there are query parameters
+  // or props, these can be passed to constructor
+  // of the view model
+  const _viewModel = new MvvmDemoViewModel();
 
-  let selectedProductIndex = 0;
-  $: singleProduct = _viewModel.getSingleProduct(selectedProductIndex);
+  // observable properties
+  let products = _viewModel.products;  
+  let singleProduct = _viewModel.singleProduct;
+
+  // refresh products when component is mounted
+  onMount(() => {
+    _viewModel.refreshProducts();
+  });
 
 </script>
 
@@ -17,14 +28,14 @@
 
   {#if $products}
     {#each $products as product}
-      <button class="btn btn-secondary me-2 my-2" on:click={() => selectedProductIndex = product.id}>{product.title}</button>
+      <button class="btn btn-secondary me-2 my-2" on:click={() => _viewModel.setSelectedProductIndex(product.id)}>{product.title}</button>
     {/each}
   {/if}
 
   <h2 class="mt-4">Single Product</h2>
   <div>{$singleProduct?.title ?? 'No product selected'}</div>
 
-  <button class="btn btn-danger mt-2" on:click={() => _viewModel.removeProduct(selectedProductIndex)}>Remove Selected Product</button>
+  <button class="btn btn-danger mt-2" on:click={() => _viewModel.removeProduct()}>Remove Selected Product</button>
 
   <br/>
 

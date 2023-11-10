@@ -1,6 +1,9 @@
 <script lang="ts">
   import { navigate } from "svelte-navigator";
-  import { AboutTauriViewModel as _viewModel } from "./AboutTauri.ViewModel";
+  import AboutTauriViewModel from "./AboutTauri.ViewModel";
+  
+  const _viewModel = new AboutTauriViewModel();
+  
 </script>
 
 <div class="container my-5">

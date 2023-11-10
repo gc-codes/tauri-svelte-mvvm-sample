@@ -10,7 +10,14 @@ const getProductById = async (id: number) => {
   return product;
 };
 
+const removeProductById = async (id: number) => {
+  const response = await fetch(`https://dummyjson.com/product/${id}`, { method: 'DELETE' })
+  const product = await response.json();
+  return product;
+};
+
 export default {
   getProducts,
   getProductById,
+  removeProductById,
 };
